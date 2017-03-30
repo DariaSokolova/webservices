@@ -2,10 +2,8 @@ package com.epam.mentoring.webservices.rest.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,24 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.epam.mentoring.webservices.bean.Task;
 import com.epam.mentoring.webservices.bean.User;
+import com.epam.mentoring.webservices.dao.TaskDAO;
 import com.epam.mentoring.webservices.dao.UserDAO;
 
-@Api(value = "User API")
+@Api(value = "Save and Update API")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class SaveController {
 
 	protected UserDAO userDAO;
+	protected TaskDAO taskDAO;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{userID}")
-	@ApiOperation(value = "Get User", notes = "Returns a user with the provided ID")
-	public User getUser(@PathVariable long userID) {
-		User user = userDAO.get(userID);
-		setLinks(user);
-		return user;
-	}
-
-	@RequestMapping(method = RequestMethod.POST, value = "/", consumes = {
+	@RequestMapping(method = RequestMethod.POST, consumes = {
 			"application/xml", "application/json" })
 	@ApiOperation(value = "Create User", notes = "Creates a user with provided parameters")
 	public long createUser(@RequestBody User user) {
@@ -52,28 +44,43 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{userID}")
-	@ApiOperation(value = "Delete User", notes = "Deletes a user with provided ID")
-	public void deleteUser(@PathVariable long userID) {
-		userDAO.delete(userID);
+	@RequestMapping(method = RequestMethod.POST, value = "/{userID}/task", consumes = {
+			"application/xml", "application/json" })
+	@ApiOperation(value = "Create Task", notes = "Creates a task with provided parameters")
+	public long createTask(@PathVariable long userID, @RequestBody Task task) {
+		User user = userDAO.get(userID);
+		if (user != null) {
+			task.setUser(user);
+			taskDAO.save(task);
+			return task.getTaskID();
+		} else {
+			return -1;
+		}
 	}
 
-	private void setLinks(User user) {
-		if (user != null) {
-			Link selfLink = linkTo(UserController.class)
-					.slash(user.getUserID()).withSelfRel();
-			user.add(selfLink);
-			for (Task task : user.getTasks()) {
-				Task methodLinkBuilder = methodOn(TaskController.class)
-						.getTask(user.getUserID(), task.getID());
-				Link taskLink = linkTo(methodLinkBuilder).withRel("getTask");
-				user.add(taskLink);
-			}
+	@RequestMapping(method = RequestMethod.PUT, value = "/{userID}/task/{taskID}", consumes = {
+			"application/xml", "application/json" })
+	@ApiOperation(value = "Update Task", notes = "Updates a task with provided parameters")
+	public long updateTask(@PathVariable long userID,
+			@PathVariable long taskID, @RequestBody Task task) {
+		User user = userDAO.get(userID);
+		if (user != null && taskDAO.get(taskID) != null) {
+			task.setUser(user);
+			task.setTaskID(taskID);
+			taskDAO.save(task);
+			return task.getTaskID();
+		} else {
+			return -1;
 		}
 	}
 
 	@Autowired
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	@Autowired
+	public void setTaskDAO(TaskDAO taskManager) {
+		this.taskDAO = taskManager;
 	}
 }
