@@ -5,15 +5,13 @@
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:sec="http://www.springframework.org/schema/security"
 	xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
    	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
   	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 	http://www.springframework.org/schema/util
-	http://www.springframework.org/schema/util/spring-util-3.0.xsd
-    http://www.springframework.org/schema/security 
-    http://www.springframework.org/schema/security/spring-security-3.2.xsd
+	http://www.springframework.org/schema/util/spring-util-4.3.xsd
 	http://cxf.apache.org/jaxws
     http://cxf.apache.org/schemas/jaxws.xsd
    ">
@@ -39,11 +37,8 @@
 				<value>/WEB-INF/application.properties</value>
 			</list>
 		</property>
-	<!--	<property name="ignoreUnresolvablePlaceholders" value="true" />-->
 	</bean>
 
-	<!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" 
-		p:location="/WEB-INF/database.properties" /> -->
 
 	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"
 		destroy-method="close">
@@ -111,36 +106,11 @@
 	<mvc:resources mapping="/webjars/**"
 		location="classpath:/META-INF/resources/webjars/" />
 
-	<!-- SPRING Security Config -->
-	<!--	<sec:http entry-point-ref="restAuthenticationEntryPoint">
-		<sec:intercept-url pattern="/**" access="ROLE_ADMIN" />
-		<sec:form-login authentication-success-handler-ref="mySuccessHandler"
-			authentication-failure-handler-ref="myFailureHandler" />
-		<sec:logout />
-	</sec:http>
-
-	<bean id="mySuccessHandler"
-		class="com.epam.mentoring.webservices.config.MySavedRequestAwareAuthenticationSuccessHandler" />
-	<bean id="myFailureHandler"
-		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
-
-	<sec:authentication-manager alias="authenticationManager">
-		<sec:authentication-provider>
-			<sec:user-service>
-				<sec:user name="temporary" password="temporary"
-					authorities="ROLE_ADMIN" />
-				<sec:user name="user" password="user" authorities="ROLE_USER" />
-			</sec:user-service>
-		</sec:authentication-provider>
-	</sec:authentication-manager>-->
-
-	<!-- SOAP CONFIG -->
-
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
 	<jaxws:endpoint id="taskService" address="/TaskService"
 		implementor="com.epam.mentoring.webservices.soap.TaskServiceImpl" />
-		
+
 	<jaxws:endpoint id="userService" address="/UserService"
 		implementor="com.epam.mentoring.webservices.soap.UserServiceImpl" />
 
@@ -151,5 +121,18 @@
 	<jaxws:client id="taskClient"
 		serviceClass="com.epam.mentoring.webservices.soap.TaskService"
 		address="${application.taskServiceAddress}" />
+
+	<!-- Configuring interceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.epam.mentoring.webservices.config.ExecuteTimeInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- Configuring post processor -->
+	<bean class="com.epam.mentoring.webservices.config.ApplicationProcessor" />
+
+
 
 </beans>
