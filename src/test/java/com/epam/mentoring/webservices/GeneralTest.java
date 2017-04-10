@@ -10,4 +10,9 @@ public class GeneralTest {
 	public void test() {
 		assertNull(null);
 	}
+	
+	@Test
+	public void test_fail() {
+		assertNull("sdf");
+	}
 }
