@@ -11,11 +11,13 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class ExecuteTimeInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = LogManager
 			.getLogger(ExecuteTimeInterceptor.class);
+	
+	private static final String START_TIME = "startTime";
 
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		long startTime = System.currentTimeMillis();
-		request.setAttribute("startTime", startTime);
+		request.setAttribute(START_TIME, startTime);
 
 		return super.preHandle(request, response, handler);
 	}
@@ -23,7 +25,7 @@ public class ExecuteTimeInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		long startTime = (Long) request.getAttribute("startTime");
+		long startTime = (Long) request.getAttribute(START_TIME);
 		long endTime = System.currentTimeMillis();
 		long executeTime = endTime - startTime;
 
