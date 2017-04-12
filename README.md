@@ -8,7 +8,7 @@ curl -X POST http://{localJenkins}/job/webservices/build?token={tokenName} --use
 
 - With each build Unit tests and SonarQube run. If they fails, build fails.
 - Notification is sent to configured email address about build results with build log attached. 
-- Configured Jenkins security with Role Strategy Plugin: rRemoved anonymous access, created administrator user (all permissions) and developer user (build job, cancel builds).
+- Configured Jenkins security with Role Strategy Plugin: removed anonymous access, created administrator user (all permissions) and developer user (build job, cancel builds).
 
 # webservices
 
