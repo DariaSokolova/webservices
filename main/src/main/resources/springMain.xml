@@ -3,8 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:sec="http://www.springframework.org/schema/security"
-	xmlns:jaxws="http://cxf.apache.org/jaxws"
-    xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
    	http://www.springframework.org/schema/context
@@ -36,38 +35,39 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>/WEB-INF/database.properties</value>
-				<value>/WEB-INF/application.properties</value>
+				<value>classpath:database.properties</value>
+				<value>classpath:application.properties</value>
 			</list>
 		</property>
 	</bean>
 
 
+	<import resource="classpath:dataBaseSource.xml" />
 
-	<!-- HSQL Config -->
-
-	<jdbc:embedded-database id="dataSource" type="HSQL">
-	</jdbc:embedded-database>
-
-
-	<!-- DERBY Config 
+	<jdbc:embedded-database id="dataSource" type="DERBY"/>
 	
-	<jdbc:embedded-database id="dataSource" type="DERBY">
-	</jdbc:embedded-database>
+	<!-- HSQL Config 
 
 
-	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"
-		destroy-method="close">
-		<property name="URL" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="connectionCacheProperties">
-			<props merge="default">
-				<prop key="MinLimit">3</prop>
-				<prop key="MaxLimit">50</prop>
-			</props>
-		</property>
-	</bean>-->
+	<beans profile="dev">
+		<jdbc:embedded-database id="dataSource" type="HSQL"/>
+	</beans>
+	
+	<beans profile="prod">
+		
+	</beans>
+	
+	<jdbc:embedded-database id="dataSource" type="HSQL">
+	</jdbc:embedded-database>-->
+
+
+	<!-- DERBY Config <jdbc:embedded-database id="dataSource" type="DERBY"> 
+		</jdbc:embedded-database> <bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource" 
+		destroy-method="close"> <property name="URL" value="${jdbc.url}" /> <property 
+		name="user" value="${jdbc.username}" /> <property name="password" value="${jdbc.password}" 
+		/> <property name="connectionCacheProperties"> <props merge="default"> <prop 
+		key="MinLimit">3</prop> <prop key="MaxLimit">50</prop> </props> </property> 
+		</bean> -->
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -78,8 +78,8 @@
 
 		<property name="hibernateProperties">
 			<props>
-				<!--	<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>-->
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
+				<prop key="hibernate.dialect">${jdbc.dialect}</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.current_session_context_class">thread</prop>
@@ -149,5 +149,5 @@
 
 	<!-- Configuring post processor -->
 	<bean class="com.epam.mentoring.webservices.config.ApplicationProcessor" />
-
+	
 </beans>
