@@ -28,7 +28,7 @@ public class GetController {
 	@ApiOperation(value = "Get User", notes = "Returns a user with the provided ID")
 	public User getUser(@PathVariable long userID) {
 		User user = userDAO.get(userID);
-		setLinks(user);
+	//	setLinks(user);
 		return user;
 	}
 
