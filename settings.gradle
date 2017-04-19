@@ -1,0 +1,6 @@
+rootProject.name = 'webservices'
+include ':main'
+include ':web'
+
+project(':main').projectDir = "$rootDir/main" as File
+project(':web').projectDir = "$rootDir/web" as File
