@@ -11,7 +11,7 @@
 
 	<scm>
 		<connection>scm:git:git://github.com/DariaSokolova/webservices</connection>
-		<developerConnection>scm:git:[fetch=]http://github.com/DariaSokolova/webservices[push=]https://DariaSokolova:Blur2001230@github.com/DariaSokolova/webservices.git</developerConnection>
+		<developerConnection>scm:git:[fetch=]http://github.com/DariaSokolova/webservices[push=]https://DariaSokolova:{password}@github.com/DariaSokolova/webservices.git</developerConnection>
 		<url>http://github.com/DariaSokolova</url>
 	</scm>
 
