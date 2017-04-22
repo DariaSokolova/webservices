@@ -1,3 +1,14 @@
+# Maven and Gradle Task
+
+Useful commands for maven:
+- checkstyle:check - checkstyle plugin run.
+- -P development/ -P production - for different database configuration. Development works works with hsql db, production works with derby db. Development profile is activated by default.
+- cobertura:check - cobertura plugin  run.
+- mvn -Dmessage="<commit_log_here>" scm:checkin  for git commit. Some others commands can be found here https://maven.apache.org/components/scm/maven-scm-plugin/
+
+Useful commands for gradle:
+- -Pprofile=development/-Pprofile=production - for different database configuration. Development works works with hsql db, production works with derby db. Development profile is activated by default.
+
 # Jenkins Task
 
 - Installed Jenkins and SonarQube.
