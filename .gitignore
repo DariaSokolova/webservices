@@ -4,3 +4,6 @@ target
 .classpath
 *.iml
 .idea
+/.gradle/
+
+build
