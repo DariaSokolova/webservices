@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User extends AbstaractBean {
+public class User extends AbstractBean {
 
 	private long userID;
 	private String name;

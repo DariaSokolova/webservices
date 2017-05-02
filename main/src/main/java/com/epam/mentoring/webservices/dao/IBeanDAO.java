@@ -1,8 +1,8 @@
 package com.epam.mentoring.webservices.dao;
 
-import com.epam.mentoring.webservices.bean.AbstaractBean;
+import com.epam.mentoring.webservices.bean.AbstractBean;
 
-public interface IBeanDAO <T extends AbstaractBean> {
+public interface IBeanDAO <T extends AbstractBean> {
 
     public Class<?> getBeanClass();
     

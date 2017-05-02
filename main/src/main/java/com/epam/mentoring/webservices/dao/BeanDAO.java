@@ -5,10 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.epam.mentoring.webservices.bean.AbstaractBean;
+import com.epam.mentoring.webservices.bean.AbstractBean;
 
-public abstract class BeanDAO<T extends AbstaractBean> implements
-		IBeanDAO<AbstaractBean> {
+public abstract class BeanDAO<T extends AbstractBean> implements
+		IBeanDAO<AbstractBean> {
 
 	protected SessionFactory sessionFactory;
 
@@ -29,7 +29,7 @@ public abstract class BeanDAO<T extends AbstaractBean> implements
 	}
 
 	@Override
-	public void save(AbstaractBean bean) {
+	public void save(AbstractBean bean) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(bean);

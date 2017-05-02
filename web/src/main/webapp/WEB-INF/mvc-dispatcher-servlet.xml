@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-   ">
-	
+  	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
 	<import resource="classpath:dataBaseSource.xml" />
 	<import resource="classpath:springMain.xml" />
+	
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/layouts/layouts.xml</value>
+				<value>/WEB-INF/pages/tiles-definitions.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="WEB-INF/i18n/messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="ru"/>
+    </bean>
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" 
+			p:paramName="theme" />
+		
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+			p:paramName="lang" />
+	</mvc:interceptors>
+	
+	<bean id="themeSource"
+		class="org.springframework.ui.context.support.ResourceBundleThemeSource" p:basenamePrefix="theme-"/>
+
+	<bean id="themeResolver" class="org.springframework.web.servlet.theme.SessionThemeResolver"
+		p:defaultThemeName="standart" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 
 </beans>
