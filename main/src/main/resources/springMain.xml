@@ -33,15 +33,6 @@
 		</property>
 	</bean>
 
-
-	<!--  
-		</jdbc:embedded-database> <bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource" 
-		destroy-method="close"> <property name="URL" value="${jdbc.url}" /> <property 
-		name="user" value="${jdbc.username}" /> <property name="password" value="${jdbc.password}" 
-		/> <property name="connectionCacheProperties"> <props merge="default"> <prop 
-		key="MinLimit">3</prop> <prop key="MaxLimit">50</prop> </props> </property> 
-		</bean> -->
-
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -51,7 +42,6 @@
 
 		<property name="hibernateProperties">
 			<props>
-				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
@@ -70,6 +60,7 @@
 
 	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDAO" />
 	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDAO" />
+	<bean id="theatreDAO" class="com.epam.mentoring.webservices.dao.TheatreDAO" />
 
 	<bean id="jsonConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

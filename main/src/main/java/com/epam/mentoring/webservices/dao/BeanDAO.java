@@ -1,5 +1,7 @@
 package com.epam.mentoring.webservices.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,6 +29,16 @@ public abstract class BeanDAO<T extends AbstractBean> implements
 		transaction.commit();
 		return bean;
 	}
+
+	@SuppressWarnings("unchecked")
+    public List<T> getAll() {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		List<T> list = session.createCriteria(getBeanClass()).list();
+		session.flush();
+		transaction.commit();
+		return list;
+    }
 
 	@Override
 	public void save(AbstractBean bean) {

@@ -17,8 +17,9 @@
 	<body>
  	<div id="page-container">
 		<%--		<tiles:insertAttribute name="header" ignore="true" />
-			<tiles:insertAttribute name="sidebar" ignore="true" />
 	--%>
+			<tiles:insertAttribute name="sidebar" ignore="true" />
+			
 			<div id="content">
 				<div class="padding">
 					<tiles:insertAttribute name="body" />

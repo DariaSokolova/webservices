@@ -34,6 +34,24 @@
 	</dependencies>
 
 	<profiles>
+			
+		<profile>
+			<id>oracle</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<jdbc.dialect>org.hibernate.dialect.Oracle10gDialect</jdbc.dialect>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources/oracle</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		
 		<profile>
 			<id>production</id>
 			<properties>
@@ -50,9 +68,6 @@
 
 		<profile>
 			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<jdbc.dialect>org.hibernate.dialect.HSQLDialect</jdbc.dialect>
 			</properties>

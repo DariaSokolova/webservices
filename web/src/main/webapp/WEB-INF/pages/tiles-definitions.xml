@@ -7,8 +7,16 @@
 		<put-attribute name="body" value="/WEB-INF/pages/home.jsp" />
 	</definition>
 	
-	<definition extends="default" name="fileUploadTest">
-		<put-attribute name="body" value="/WEB-INF/pages/fileUploadTest.jsp" />
+	<definition extends="default" name="theatre/list">
+		<put-attribute name="body" value="/WEB-INF/pages/theatre/list.jsp" />
+	</definition>
+	
+	<definition extends="default" name="theatre/view">
+		<put-attribute name="body" value="/WEB-INF/pages/theatre/view.jsp" />
+	</definition>
+	
+	<definition extends="default" name="theatre/edit">
+		<put-attribute name="body" value="/WEB-INF/pages/theatre/edit.jsp" />
 	</definition>
 
 </tiles-definitions>
