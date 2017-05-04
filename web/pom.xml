@@ -31,10 +31,30 @@
 			<artifactId>tiles-core</artifactId>
 			<version>3.0.7</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 	</dependencies>
 
 	<profiles>
-			
+
 		<profile>
 			<id>oracle</id>
 			<activation>
@@ -51,7 +71,7 @@
 				</resources>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>production</id>
 			<properties>

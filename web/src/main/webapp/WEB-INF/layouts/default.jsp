@@ -3,27 +3,24 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@page session="true"%>
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
-	<title><spring:message code="welcome_h3"/></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="<spring:theme code="styleSheet"/>" />	
-<%--	<spring:theme code="styleSheet" var="app_css" />
-	<spring:url value="/${app_css}" var="app_css_url" />
-	<link rel="stylesheet" type="text/css" media="screen" href="${app_css_url}" />		--%>
+	<title><spring:message code="application.title"/></title>
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/default.css" />
+	<spring:theme code="styleSheet" var="themeURL" />
+	<spring:url value="/${themeURL}" var="appThemeURL" />
+	<link rel="stylesheet" type="text/css" media="screen" href="${appThemeURL}" />		
 
 </head>
 	<body>
- 	<div id="page-container">
-		<%--		<tiles:insertAttribute name="header" ignore="true" />
-	--%>
+ 	<div id="container">
+			<tiles:insertAttribute name="header" ignore="true" />
 			<tiles:insertAttribute name="sidebar" ignore="true" />
 			
 			<div id="content">
-				<div class="padding">
-					<tiles:insertAttribute name="body" />
-				</div>
+				<tiles:insertAttribute name="body" />
 			</div>
 	
 			<tiles:insertAttribute name="footer" ignore="true" />

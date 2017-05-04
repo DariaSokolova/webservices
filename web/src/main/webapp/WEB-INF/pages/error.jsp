@@ -5,8 +5,9 @@
 
 <html>
 <body>
-	<h1>
-		<spring:message code="welcome.message" />
-	</h1>
+	<img src="/image/example_image.jpg" />
+
+	<h1><spring:message code="message.error"/></h1>
+	
 </body>
 </html>

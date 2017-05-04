@@ -6,6 +6,14 @@
 	<definition extends="default" name="home">
 		<put-attribute name="body" value="/WEB-INF/pages/home.jsp" />
 	</definition>
+
+	<definition extends="default" name="error">
+		<put-attribute name="body" value="/WEB-INF/pages/error.jsp" />
+	</definition>
+
+	<definition extends="default" name="fileUploadError">
+		<put-attribute name="body" value="/WEB-INF/pages/fileUploadError.jsp" />
+	</definition>
 	
 	<definition extends="default" name="theatre/list">
 		<put-attribute name="body" value="/WEB-INF/pages/theatre/list.jsp" />
@@ -17,6 +25,18 @@
 	
 	<definition extends="default" name="theatre/edit">
 		<put-attribute name="body" value="/WEB-INF/pages/theatre/edit.jsp" />
+	</definition>
+	
+	<definition extends="default" name="user/list">
+		<put-attribute name="body" value="/WEB-INF/pages/user/list.jsp" />
+	</definition>
+	
+	<definition extends="default" name="user/view">
+		<put-attribute name="body" value="/WEB-INF/pages/user/view.jsp" />
+	</definition>
+	
+	<definition extends="default" name="user/edit">
+		<put-attribute name="body" value="/WEB-INF/pages/user/edit.jsp" />
 	</definition>
 
 </tiles-definitions>

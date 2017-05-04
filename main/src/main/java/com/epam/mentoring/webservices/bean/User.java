@@ -1,5 +1,6 @@
 package com.epam.mentoring.webservices.bean;
 
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class User extends AbstractBean {
 
 	private long userID;
+	
 	private String name;
 	private String surname;
 	private String email;
+	private Blob photo;
 	@JsonManagedReference
 	private Set<Task> tasks;
 
@@ -46,6 +49,14 @@ public class User extends AbstractBean {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Blob getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
 	}
 
 	public Set<Task> getTasks() {
