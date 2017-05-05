@@ -62,7 +62,7 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<prop key="com.epam.mentoring.webservices.exception.ServiceException">
+				<prop key="com.epam.mentoring.webservices.exception.FileUploadException">
 					fileUploadError
 				</prop>
 			</props>

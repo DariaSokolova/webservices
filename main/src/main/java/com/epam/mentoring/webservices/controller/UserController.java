@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.epam.mentoring.webservices.bean.User;
 import com.epam.mentoring.webservices.constant.ApplicationConstant;
 import com.epam.mentoring.webservices.dao.UserDAO;
-import com.epam.mentoring.webservices.exception.ServiceException;
+import com.epam.mentoring.webservices.exception.FileUploadException;
 import com.epam.mentoring.webservices.validator.UserControllerValidator;
 
 @Controller
@@ -66,7 +65,6 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@ExceptionHandler({ServiceException.class})
 	public String save(@ModelAttribute("user") User user,
 			BindingResult result, Model model,
 			@RequestParam(value = "file", required = false) Part file) {
@@ -92,7 +90,6 @@ public class UserController {
 		return userDAO.getPhoto(userID);
 	}
 	
-
 	private void processUploadFile(User user, Part file) {
 		if (file != null) {
 			Blob fileContent = null;
@@ -101,7 +98,7 @@ public class UserController {
 				fileContent = Hibernate.createBlob(inputStream);
 				user.setPhoto(fileContent);
 			} catch (IOException e) {
-				throw new ServiceException(e);
+				throw new FileUploadException(e);
 			}
 		}
 	}

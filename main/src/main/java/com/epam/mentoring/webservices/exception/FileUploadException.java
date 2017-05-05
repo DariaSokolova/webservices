@@ -1,18 +1,18 @@
 package com.epam.mentoring.webservices.exception;
 
-public class ServiceException extends RuntimeException {
+public class FileUploadException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String message;
 
-	public ServiceException() {	}
+	public FileUploadException() {	}
 	
-	public ServiceException(String message) {
+	public FileUploadException(String message) {
 		this.message = message;
 	}
 	
-	public ServiceException(Exception exception) {
+	public FileUploadException(Exception exception) {
 		this.message = exception.getMessage();
 		this.setStackTrace(exception.getStackTrace());
 	}

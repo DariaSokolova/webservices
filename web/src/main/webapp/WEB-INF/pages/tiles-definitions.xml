@@ -8,11 +8,15 @@
 	</definition>
 
 	<definition extends="default" name="error">
-		<put-attribute name="body" value="/WEB-INF/pages/error.jsp" />
+		<put-attribute name="body" value="/WEB-INF/pages/error/error.jsp" />
 	</definition>
 
 	<definition extends="default" name="fileUploadError">
-		<put-attribute name="body" value="/WEB-INF/pages/fileUploadError.jsp" />
+		<put-attribute name="body" value="/WEB-INF/pages/error/fileUploadError.jsp" />
+	</definition>
+
+	<definition extends="default" name="databaseError">
+		<put-attribute name="body" value="/WEB-INF/pages/error/databaseError.jsp" />
 	</definition>
 	
 	<definition extends="default" name="task/list">

@@ -17,7 +17,7 @@ import com.epam.mentoring.webservices.bean.User;
 import com.epam.mentoring.webservices.constant.ApplicationConstant;
 import com.epam.mentoring.webservices.dao.TaskDAO;
 import com.epam.mentoring.webservices.dao.UserDAO;
-import com.epam.mentoring.webservices.exception.ServiceException;
+import com.epam.mentoring.webservices.exception.FileUploadException;
 import com.epam.mentoring.webservices.validator.TaskControllerValidator;
 
 @Controller
@@ -64,7 +64,7 @@ public class TaskController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@ExceptionHandler({ ServiceException.class })
+	@ExceptionHandler({ FileUploadException.class })
 	public String save(@ModelAttribute("task") Task task, BindingResult result,
 			Model model) {
 		taskControllerValidator.validate(task, result);
