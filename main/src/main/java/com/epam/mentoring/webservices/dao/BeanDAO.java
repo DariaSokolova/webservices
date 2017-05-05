@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.epam.mentoring.webservices.bean.AbstractBean;
 
 public abstract class BeanDAO<T extends AbstractBean> implements
-		IBeanDAO<AbstractBean> {
+		IBeanDAO<T> {
 
 	protected SessionFactory sessionFactory;
 

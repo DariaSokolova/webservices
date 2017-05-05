@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.epam.mentoring.webservices.bean.User;
 import com.epam.mentoring.webservices.dao.UserDAO;
+import com.epam.mentoring.webservices.dao.UserDefaultDAO;
 
 @WebService(endpointInterface = "com.epam.mentoring.webservices.soap.UserService", serviceName = "UserServiceImpl")
 public class UserServiceImpl implements UserService {
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Autowired
-	public void setUserManager(UserDAO userDAO) {
+	public void setUserManager(UserDefaultDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 }

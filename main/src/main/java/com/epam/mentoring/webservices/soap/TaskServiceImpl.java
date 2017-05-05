@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.epam.mentoring.webservices.bean.Task;
 import com.epam.mentoring.webservices.bean.User;
 import com.epam.mentoring.webservices.dao.TaskDAO;
+import com.epam.mentoring.webservices.dao.TaskDefaultDAO;
 import com.epam.mentoring.webservices.dao.UserDAO;
+import com.epam.mentoring.webservices.dao.UserDefaultDAO;
 
 @WebService(endpointInterface = "com.epam.mentoring.webservices.soap.TaskService", serviceName = "UserServiceImpl")
 public class TaskServiceImpl implements TaskService {
@@ -44,12 +46,12 @@ public class TaskServiceImpl implements TaskService {
 
 
 	@Autowired
-	public void setTaskDAO(TaskDAO taskDAO) {
+	public void setTaskDAO(TaskDefaultDAO taskDAO) {
 		this.taskDAO = taskDAO;
 	}
 
 	@Autowired
-	public void setUserDAO(UserDAO userDAO) {
+	public void setUserDAO(UserDefaultDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 }

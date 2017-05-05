@@ -21,7 +21,7 @@
 		<property name="photo" type="blob">
 			<column name="photo" not-null="false" />
 		</property>
-	   <set name="tasks" table="DB_TASK" inverse="true"
+	   <set name="tasks" table="DB_TASK" inverse="true" cascade="delete" 
 			lazy="false" fetch="select">
 			<key>
 				<column name="user_id" not-null="true" />

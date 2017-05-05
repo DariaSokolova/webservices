@@ -4,7 +4,6 @@
 
 <html>
 <body>
-	User Page
 	<div class="list">
 		<ul id="menu">
 			<c:forEach var="bean" items="${beans}">
@@ -12,7 +11,7 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<a href="${homeUrl}/users/new">Add User</a>
+	<a href="${homeUrl}/users/new"><spring:message code="label.add"/></a>
 
 </body>
 </html>

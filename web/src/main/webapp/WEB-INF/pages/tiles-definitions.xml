@@ -15,16 +15,16 @@
 		<put-attribute name="body" value="/WEB-INF/pages/fileUploadError.jsp" />
 	</definition>
 	
-	<definition extends="default" name="theatre/list">
-		<put-attribute name="body" value="/WEB-INF/pages/theatre/list.jsp" />
+	<definition extends="default" name="task/list">
+		<put-attribute name="body" value="/WEB-INF/pages/task/list.jsp" />
 	</definition>
 	
-	<definition extends="default" name="theatre/view">
-		<put-attribute name="body" value="/WEB-INF/pages/theatre/view.jsp" />
+	<definition extends="default" name="task/view">
+		<put-attribute name="body" value="/WEB-INF/pages/task/view.jsp" />
 	</definition>
 	
-	<definition extends="default" name="theatre/edit">
-		<put-attribute name="body" value="/WEB-INF/pages/theatre/edit.jsp" />
+	<definition extends="default" name="task/edit">
+		<put-attribute name="body" value="/WEB-INF/pages/task/edit.jsp" />
 	</definition>
 	
 	<definition extends="default" name="user/list">

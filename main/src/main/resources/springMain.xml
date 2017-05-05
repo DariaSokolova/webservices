@@ -57,9 +57,11 @@
 
 	</bean>
 
-	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDAO" />
-	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDAO" />
+	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDefaultDAO" />
+	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDefaultDAO" />
+	
 	<bean id="userControllerValidator" class="com.epam.mentoring.webservices.validator.UserControllerValidator" />
+	<bean id="taskControllerValidator" class="com.epam.mentoring.webservices.validator.TaskControllerValidator" />
 
 	<bean id="jsonConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

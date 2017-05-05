@@ -7,10 +7,11 @@
 	<div class="list">
 		<ul id="menu">
 			<c:forEach var="bean" items="${beans}">
-				<li><a href="${homeUrl}/theatres/${bean.id}">${bean.title}</a></li>
+				<li><a href="${homeUrl}/tasks/${bean.ID}">${bean.name}</a></li>
 			</c:forEach>
 		</ul>
 	</div>
+	<a href="${homeUrl}/tasks/new"><spring:message code="label.add"/></a>
 
 </body>
 </html>
