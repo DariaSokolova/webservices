@@ -18,7 +18,7 @@
     http://cxf.apache.org/schemas/jaxws.xsd
    ">
 
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven />
 	<context:component-scan base-package="com.epam.mentoring.webservices" />
 	<mvc:default-servlet-handler />
 
@@ -34,6 +34,7 @@
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
 		<property name="dataSource" ref="dataSource" />
 		<property name="configurationClass">
 			<value>org.hibernate.cfg.Configuration</value>
@@ -42,10 +43,16 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.show_sql">true</prop> -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.jdbc.batch_size">100</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop> -->
+				<prop key="hibernate.cache.use_structured_entries">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
 			</props>
 		</property>
 		<property name="mappingResources">
@@ -54,14 +61,35 @@
 				<value>Task.hbm.xml</value>
 			</list>
 		</property>
-
 	</bean>
+<!--
+	<bean id="statisticsBean" class="org.hibernate.jmx.StatisticsService">
+		<property name="statisticsEnabled">
+			<value>true</value>
+		</property>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="Hibernate:type=statistics">
+					<ref bean="statisticsBean" />
+				</entry>
+			</map>
+		</property>
+	</bean>-->
+
 
 	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDefaultDAO" />
 	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDefaultDAO" />
-	
-	<bean id="userControllerValidator" class="com.epam.mentoring.webservices.validator.UserControllerValidator" />
-	<bean id="taskControllerValidator" class="com.epam.mentoring.webservices.validator.TaskControllerValidator" />
+
+	<bean id="userControllerValidator"
+		class="com.epam.mentoring.webservices.validator.UserControllerValidator" />
+	<bean id="taskControllerValidator"
+		class="com.epam.mentoring.webservices.validator.TaskControllerValidator" />
 
 	<bean id="jsonConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -79,40 +107,22 @@
 	</bean>
 
 
-	<!-- Swagger Config
+	<!-- Swagger Config <bean id="swagger2Config" class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" 
+		/> <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" 
+		/> <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" 
+		/> <import resource="classpath:META-INF/cxf/cxf.xml" /> <jaxws:endpoint id="taskService" 
+		address="/TaskService" implementor="com.epam.mentoring.webservices.soap.TaskServiceImpl" 
+		/> <jaxws:endpoint id="userService" address="/UserService" implementor="com.epam.mentoring.webservices.soap.UserServiceImpl" 
+		/> <jaxws:client id="userClient" serviceClass="com.epam.mentoring.webservices.soap.UserService" 
+		address="${application.userServiceAddress}" /> <jaxws:client id="taskClient" 
+		serviceClass="com.epam.mentoring.webservices.soap.TaskService" address="${application.taskServiceAddress}" 
+		/> -->
 
-	<bean id="swagger2Config"
-		class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" />
+	<!-- Configuring interceptor <mvc:interceptors> <mvc:interceptor> <mvc:mapping 
+		path="/**" /> <bean class="com.epam.mentoring.webservices.config.ExecuteTimeInterceptor" 
+		/> </mvc:interceptor> </mvc:interceptors> -->
 
-	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
-	<mvc:resources mapping="/webjars/**"
-		location="classpath:/META-INF/resources/webjars/" />
-
-	<import resource="classpath:META-INF/cxf/cxf.xml" />
-
-	<jaxws:endpoint id="taskService" address="/TaskService"
-		implementor="com.epam.mentoring.webservices.soap.TaskServiceImpl" />
-
-	<jaxws:endpoint id="userService" address="/UserService"
-		implementor="com.epam.mentoring.webservices.soap.UserServiceImpl" />
-
-	<jaxws:client id="userClient"
-		serviceClass="com.epam.mentoring.webservices.soap.UserService"
-		address="${application.userServiceAddress}" />
-
-	<jaxws:client id="taskClient"
-		serviceClass="com.epam.mentoring.webservices.soap.TaskService"
-		address="${application.taskServiceAddress}" /> -->
-
-	<!-- Configuring interceptor -->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.epam.mentoring.webservices.config.ExecuteTimeInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
-
-	<!-- Configuring post processor -->
-	<bean class="com.epam.mentoring.webservices.config.ApplicationProcessor" />
+	<!-- Configuring post processor <bean class="com.epam.mentoring.webservices.config.ApplicationProcessor" 
+		/> -->
 
 </beans>
