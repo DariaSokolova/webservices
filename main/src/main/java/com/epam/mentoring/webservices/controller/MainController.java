@@ -1,4 +1,4 @@
-package com.epam.mentoring.webservices.rest.controller;
+package com.epam.mentoring.webservices.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/")
 public class MainController {
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String start(Model model) {
-		return "index";
-	}
+		return "home";
+	}	
 }

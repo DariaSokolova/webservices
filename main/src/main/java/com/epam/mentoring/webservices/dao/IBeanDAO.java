@@ -1,12 +1,15 @@
 package com.epam.mentoring.webservices.dao;
 
-import com.epam.mentoring.webservices.bean.AbstaractBean;
+import java.util.List;
 
-public interface IBeanDAO <T extends AbstaractBean> {
+import com.epam.mentoring.webservices.bean.BaseBean;
+
+public interface IBeanDAO <T extends BaseBean> {
 
     public Class<?> getBeanClass();
     
     public T get(long beanID);
+    public List<T> getAll();
     public void save(T bean);
     public void delete(long beanID);
 }

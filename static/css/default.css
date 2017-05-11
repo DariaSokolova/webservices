@@ -1,0 +1,32 @@
+body {
+	font-family: Trebuchet MS, Arial, Times New Roman;
+	font-size: 12px;
+}
+
+#container {
+	margin: 30px auto;
+	width: 900px;
+	height: 700px;
+}
+
+#header {
+	height: 100px;
+	width: 900px;
+}
+
+#sidebar {
+	float: left;
+	width: 200px;
+	height: 600px;
+}
+
+#content {
+	float: right;
+	width: 700px;
+	height: 600px;
+}
+
+#footer {
+	height: 180px;
+	width: 900px;
+}

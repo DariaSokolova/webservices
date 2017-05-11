@@ -1,14 +1,16 @@
 package com.epam.mentoring.webservices.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.epam.mentoring.webservices.bean.AbstaractBean;
+import com.epam.mentoring.webservices.bean.AbstractBean;
 
-public abstract class BeanDAO<T extends AbstaractBean> implements
-		IBeanDAO<AbstaractBean> {
+public abstract class BeanDAO<T extends AbstractBean> implements
+		IBeanDAO<T> {
 
 	protected SessionFactory sessionFactory;
 
@@ -28,8 +30,18 @@ public abstract class BeanDAO<T extends AbstaractBean> implements
 		return bean;
 	}
 
+	@SuppressWarnings("unchecked")
+    public List<T> getAll() {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		List<T> list = session.createCriteria(getBeanClass()).list();
+		session.flush();
+		transaction.commit();
+		return list;
+    }
+
 	@Override
-	public void save(AbstaractBean bean) {
+	public void save(AbstractBean bean) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(bean);

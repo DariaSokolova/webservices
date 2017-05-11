@@ -18,12 +18,15 @@
 		<property name="email" type="string">
 			<column name="email" not-null="true" />
 		</property>
-		<set name="tasks" table="DB_TASK" inverse="true"
+		<property name="photo" type="blob">
+			<column name="photo" not-null="false" />
+		</property>
+	   <set name="tasks" table="DB_TASK" inverse="true" cascade="delete" 
 			lazy="false" fetch="select">
 			<key>
 				<column name="user_id" not-null="true" />
 			</key>
 			<one-to-many class="com.epam.mentoring.webservices.bean.Task" />
-		</set>
+		</set>	
 	</class>
 </hibernate-mapping>

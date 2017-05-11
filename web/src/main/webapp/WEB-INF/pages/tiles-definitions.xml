@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition extends="default" name="home">
+		<put-attribute name="body" value="/WEB-INF/pages/home.jsp" />
+	</definition>
+
+	<definition extends="default" name="error">
+		<put-attribute name="body" value="/WEB-INF/pages/error/error.jsp" />
+	</definition>
+
+	<definition extends="default" name="fileUploadError">
+		<put-attribute name="body" value="/WEB-INF/pages/error/fileUploadError.jsp" />
+	</definition>
+
+	<definition extends="default" name="databaseError">
+		<put-attribute name="body" value="/WEB-INF/pages/error/databaseError.jsp" />
+	</definition>
+	
+	<definition extends="default" name="task/list">
+		<put-attribute name="body" value="/WEB-INF/pages/task/list.jsp" />
+	</definition>
+	
+	<definition extends="default" name="task/view">
+		<put-attribute name="body" value="/WEB-INF/pages/task/view.jsp" />
+	</definition>
+	
+	<definition extends="default" name="task/edit">
+		<put-attribute name="body" value="/WEB-INF/pages/task/edit.jsp" />
+	</definition>
+	
+	<definition extends="default" name="user/list">
+		<put-attribute name="body" value="/WEB-INF/pages/user/list.jsp" />
+	</definition>
+	
+	<definition extends="default" name="user/view">
+		<put-attribute name="body" value="/WEB-INF/pages/user/view.jsp" />
+	</definition>
+	
+	<definition extends="default" name="user/edit">
+		<put-attribute name="body" value="/WEB-INF/pages/user/edit.jsp" />
+	</definition>
+
+</tiles-definitions>

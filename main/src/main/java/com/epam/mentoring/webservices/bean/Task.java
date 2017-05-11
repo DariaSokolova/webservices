@@ -2,17 +2,24 @@ package com.epam.mentoring.webservices.bean;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Task extends AbstaractBean {
+public class Task extends AbstractBean {
 
 	private long taskID;
 	private String name;
 	private String description;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date creationDate;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date deadLine;
+	
 	@JsonBackReference
 	private User user;
 

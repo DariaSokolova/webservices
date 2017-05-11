@@ -18,18 +18,9 @@
     http://cxf.apache.org/schemas/jaxws.xsd
    ">
 
-	<context:component-scan
-		base-package="com.epam.mentoring.webservices.rest.controller" />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.epam.mentoring.webservices" />
 	<mvc:default-servlet-handler />
-
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/pages/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -41,15 +32,6 @@
 		</property>
 	</bean>
 
-
-	<!--  
-		</jdbc:embedded-database> <bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource" 
-		destroy-method="close"> <property name="URL" value="${jdbc.url}" /> <property 
-		name="user" value="${jdbc.username}" /> <property name="password" value="${jdbc.password}" 
-		/> <property name="connectionCacheProperties"> <props merge="default"> <prop 
-		key="MinLimit">3</prop> <prop key="MaxLimit">50</prop> </props> </property> 
-		</bean> -->
-
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -59,7 +41,6 @@
 
 		<property name="hibernateProperties">
 			<props>
-				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
@@ -76,8 +57,11 @@
 
 	</bean>
 
-	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDAO" />
-	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDAO" />
+	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDefaultDAO" />
+	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDefaultDAO" />
+	
+	<bean id="userControllerValidator" class="com.epam.mentoring.webservices.validator.UserControllerValidator" />
+	<bean id="taskControllerValidator" class="com.epam.mentoring.webservices.validator.TaskControllerValidator" />
 
 	<bean id="jsonConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -95,7 +79,7 @@
 	</bean>
 
 
-	<!-- Swagger Config -->
+	<!-- Swagger Config
 
 	<bean id="swagger2Config"
 		class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" />
@@ -118,7 +102,7 @@
 
 	<jaxws:client id="taskClient"
 		serviceClass="com.epam.mentoring.webservices.soap.TaskService"
-		address="${application.taskServiceAddress}" />
+		address="${application.taskServiceAddress}" /> -->
 
 	<!-- Configuring interceptor -->
 	<mvc:interceptors>
@@ -130,5 +114,5 @@
 
 	<!-- Configuring post processor -->
 	<bean class="com.epam.mentoring.webservices.config.ApplicationProcessor" />
-	
+
 </beans>

@@ -74,6 +74,5 @@ public class SaveControllerTest {
 		long actualID = controller.createTask(userID, task);
 		
 		assertEquals(-1, actualID);
-		
 	}
 }

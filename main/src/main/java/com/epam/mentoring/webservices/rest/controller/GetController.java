@@ -51,12 +51,12 @@ public class GetController {
 			Link selfLink = linkTo(GetController.class).slash(user.getUserID())
 					.withSelfRel();
 			user.add(selfLink);
-			for (Task task : user.getTasks()) {
-				Task methodLinkBuilder = methodOn(GetController.class).getTask(
-						user.getUserID(), task.getID());
-				Link taskLink = linkTo(methodLinkBuilder).withRel("getTask");
-				user.add(taskLink);
-			}
+//			for (Task task : user.getTasks()) {
+//				Task methodLinkBuilder = methodOn(GetController.class).getTask(
+//						user.getUserID(), task.getID());
+//				Link taskLink = linkTo(methodLinkBuilder).withRel("getTask");
+//				user.add(taskLink);
+//			}
 		}
 	}
 
