@@ -21,9 +21,14 @@
     http://cxf.apache.org/schemas/jaxws.xsd
    ">
 
-	<mvc:annotation-driven />
-	<context:component-scan base-package="com.epam.mentoring.webservices" />
-	<mvc:default-servlet-handler />
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:test.properties</value>
+			</list>
+		</property>
+	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
@@ -31,17 +36,6 @@
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:database.properties</value>
-				<value>classpath:application.properties</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean id="sessionFactory"
@@ -79,45 +73,26 @@
 	</bean>
 
 	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDefaultDAO" />
-	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDefaultDAO" />
+	<bean id="ticketDAO" class="com.epam.mentoring.webservices.dao.TicketDefaultDAO" />
+	<bean id="perfomanceDAO" class="com.epam.mentoring.webservices.dao.PerfomanceDefaultDAO" />
+	<bean id="seatPerfomanceDAO" class="com.epam.mentoring.webservices.dao.SeatPerfomanceDefaultDAO" />
+	<bean id="theatreDAO" class="com.epam.mentoring.webservices.dao.TheatreDefaultDAO" />
+	<bean id="theatreOwnerDAO"
+		class="com.epam.mentoring.webservices.dao.TheatreOwnerDefaultDAO" />
+	<bean id="showDAO" class="com.epam.mentoring.webservices.dao.ShowDefaultDAO" />
+	<bean id="seatDAO" class="com.epam.mentoring.webservices.dao.SeatDefaultDAO" />
 
-	<bean id="userControllerValidator"
-		class="com.epam.mentoring.webservices.validator.UserControllerValidator" />
-	<bean id="taskControllerValidator"
-		class="com.epam.mentoring.webservices.validator.TaskControllerValidator" />
-
-	<bean id="jsonConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="prefixJson" value="false" />
-		<property name="supportedMediaTypes" value="application/json" />
-	</bean>
-
-	<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="jsonConverter" />
-			</list>
+	<bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource"
+		destroy-method="close">
+		<property name="URL" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="connectionCacheProperties">
+			<props merge="default">
+				<prop key="MinLimit">3</prop>
+				<prop key="MaxLimit">10</prop>
+			</props>
 		</property>
 	</bean>
-
-
-	<!-- Swagger Config <bean id="swagger2Config" class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" 
-		/> <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" 
-		/> <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" 
-		/> <import resource="classpath:META-INF/cxf/cxf.xml" /> <jaxws:endpoint id="taskService" 
-		address="/TaskService" implementor="com.epam.mentoring.webservices.soap.TaskServiceImpl" 
-		/> <jaxws:endpoint id="userService" address="/UserService" implementor="com.epam.mentoring.webservices.soap.UserServiceImpl" 
-		/> <jaxws:client id="userClient" serviceClass="com.epam.mentoring.webservices.soap.UserService" 
-		address="${application.userServiceAddress}" /> <jaxws:client id="taskClient" 
-		serviceClass="com.epam.mentoring.webservices.soap.TaskService" address="${application.taskServiceAddress}" 
-		/> -->
-
-	<!-- Configuring interceptor <mvc:interceptors> <mvc:interceptor> <mvc:mapping 
-		path="/**" /> <bean class="com.epam.mentoring.webservices.config.ExecuteTimeInterceptor" 
-		/> </mvc:interceptor> </mvc:interceptors> -->
-
-	<!-- Configuring post processor <bean class="com.epam.mentoring.webservices.config.ApplicationProcessor" 
-		/> -->
 
 </beans>

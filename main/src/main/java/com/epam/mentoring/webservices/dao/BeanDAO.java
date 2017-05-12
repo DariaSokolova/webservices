@@ -4,61 +4,52 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.mentoring.webservices.bean.AbstractBean;
 
-public abstract class BeanDAO<T extends AbstractBean> implements
-		IBeanDAO<T> {
-
-	protected SessionFactory sessionFactory;
+public abstract class BeanDAO<T extends AbstractBean> implements IBeanDAO<T> {
 
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+	protected SessionFactory sessionFactory;
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public T get(long beanID) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
 		T bean = (T) session.get(getBeanClass(), beanID);
 		session.flush();
-		transaction.commit();
 		return bean;
 	}
 
 	@SuppressWarnings("unchecked")
-    public List<T> getAll() {
+	@Transactional
+	public List<T> getAll() {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
 		List<T> list = session.createCriteria(getBeanClass()).list();
 		session.flush();
-		transaction.commit();
 		return list;
-    }
+	}
 
 	@Override
-	public void save(AbstractBean bean) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+	@Transactional
+	public void save(T bean) {
+		Session session = sessionFactory.getCurrentSession();		
 		session.saveOrUpdate(bean);
 		session.flush();
-		transaction.commit();
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public void delete(long beanID) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
 		T bean = (T) session.load(getBeanClass(), beanID);
 		if (bean.getID() != 0) {
 			session.delete(bean);
 			session.flush();
-			transaction.commit();
 		}
 	}
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.epam.mentoring.webservices.bean.Seat"
+		batch-size="100" table="DB_SEAT">
+		<cache usage="read-write"/>
+		<id name="seatID" type="long">
+			<column name="seat_id" />
+			<generator class="increment" />
+		</id>
+		<version name="version" type="int"/>
+		<property name="row" type="string">
+			<column name="seat_row" not-null="true" />
+		</property>
+		<property name="place" type="string">
+			<column name="place" not-null="true" />
+		</property>	
+		<set name="seatPerfomanceSet" table="DB_SEAT_PERFOMANCE" inverse="true" cascade="all"
+			lazy="false" fetch="select" batch-size="100">
+			<key>
+				<column name="seat_id" not-null="true" />
+			</key>
+			<one-to-many class="com.epam.mentoring.webservices.bean.SeatPerfomance" />
+		</set>
+	</class>
+</hibernate-mapping>
