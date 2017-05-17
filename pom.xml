@@ -15,6 +15,7 @@
 		<url>http://github.com/DariaSokolova</url>
 	</scm>
 
+	<!-- https://DariaSokolova:Blur2001230@github.com/DariaSokolova/webservices.git -->
 	<modules>
 		<module>main</module>
 		<module>web</module>
@@ -33,7 +34,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- Spring dependencies 3.3.2.GA -->
+			<!-- Spring dependencies -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>

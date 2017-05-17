@@ -6,8 +6,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 
-@TestExecutionListeners({ //DbUnitTestExecutionListener.class,
-		DependencyInjectionTestExecutionListener.class,
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		TransactionDbUnitTestExecutionListener.class })
 @Ignore
 public class AbstractDBUnitTest extends AbstractDBTest {

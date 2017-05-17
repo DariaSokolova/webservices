@@ -99,7 +99,6 @@
 	<bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
 		<property name="skipOracleRecyclebinTables" value="true" />
 		<property name="qualifiedTableNames" value="true" />
-		<!-- <property name="caseSensitiveTableNames" value="true"/> -->
 	</bean>
 	<bean id="dbUnitDatabaseConnection"
 		class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
