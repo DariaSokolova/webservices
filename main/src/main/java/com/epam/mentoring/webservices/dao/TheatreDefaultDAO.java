@@ -35,17 +35,21 @@ public class TheatreDefaultDAO extends BeanDAO<Theatre> implements TheatreDAO {
 
 	@Override
 	@Transactional
-	public void lockMethod(Theatre theatre) {
-		sessionFactory.getCurrentSession()
-				.buildLockRequest(new LockOptions(LockMode.PESSIMISTIC_WRITE))
+	public void lockMethod(long beanID) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Theatre theatre = get(beanID);
+		logger.info(session.hashCode()
+				+ ": Session trying to lock the object");
+		session.buildLockRequest(new LockOptions(LockMode.PESSIMISTIC_WRITE))
 				.lock(theatre);
-		logger.info(sessionFactory.getCurrentSession().hashCode()
+		logger.info(session.hashCode()
 				+ ": Session locks the object");
 		try {
-			logger.info(sessionFactory.getCurrentSession().hashCode()
+			logger.info(session.hashCode()
 					+ ": Session doing some work");
 			Thread.sleep(5000);
-			logger.info(sessionFactory.getCurrentSession().hashCode()
+			logger.info(session.hashCode()
 					+ ": Session release the objects");
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage());

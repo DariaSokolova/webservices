@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<MENTORING.DB_USER USER_ID="1" NAME="Kevin" SURNAME="Price" EMAIL="kevin@price.com" VERSION="0" />
+	<MENTORING.DB_USER USER_ID="2" NAME="Evan" SURNAME="Hansen" EMAIL="evan@hansen.com" VERSION="0" />
+	<MENTORING.DB_USER USER_ID="3" NAME="David"  SURNAME="Tennant" EMAIL="doctor@who.com" VERSION="1" />
+</dataset>

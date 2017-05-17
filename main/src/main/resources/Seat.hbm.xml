@@ -5,8 +5,10 @@
 		batch-size="100" table="DB_SEAT">
 		<cache usage="read-write"/>
 		<id name="seatID" type="long">
-			<column name="seat_id" />
-			<generator class="increment" />
+			<column name="seat_id" />			
+			<generator class="sequence">
+				<param name="sequence">SEQ_seat</param>
+			</generator>
 		</id>
 		<version name="version" type="int"/>
 		<property name="row" type="string">

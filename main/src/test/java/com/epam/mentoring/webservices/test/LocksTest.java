@@ -1,4 +1,4 @@
-package com.epam.mentoring.webservices.dao;
+package com.epam.mentoring.webservices.test;
 
 import static org.junit.Assert.fail;
 
@@ -7,11 +7,18 @@ import org.hibernate.StaleObjectStateException;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.epam.mentoring.webservices.bean.Theatre;
 import com.epam.mentoring.webservices.bean.User;
+import com.epam.mentoring.webservices.dao.TheatreDAO;
+import com.epam.mentoring.webservices.dao.UserDAO;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class LocksTest extends AbstractTest {
+@TestExecutionListeners({ DbUnitTestExecutionListener.class,
+	DependencyInjectionTestExecutionListener.class })
+public class LocksTest extends AbstractDBTest {
 
 	@Autowired
 	protected UserDAO userDAO;
@@ -21,15 +28,15 @@ public class LocksTest extends AbstractTest {
 	private static final Logger logger = Logger.getLogger(LocksTest.class);
 
 	@Test(expected = StaleObjectStateException.class)
-	@Ignore
+	@DatabaseSetup("/data/user-data.xml")
 	public void testOptimisticLocking_default() {	
-		User user = prepareUserBean();
+		long userID = 1;
 	
-		User user1 = userDAO.get(user.getID());
-		User user2 = userDAO.get(user.getID());
+		User user1 = userDAO.get(userID);
+		User user2 = userDAO.get(userID);
 
-		user1.setName("test 1");
-		user2.setName("test 2");
+		user1.setName("Connor");
+		user2.setName("Arnold");
 		
 		userDAO.save(user1);
 		userDAO.save(user2);
@@ -39,32 +46,19 @@ public class LocksTest extends AbstractTest {
 	}
 	
 	@Test(timeout = 20000)
+	@DatabaseSetup("/data/theatre-data.xml")
 	public void testPessimistickLocking() throws InterruptedException {
-		Theatre theatre = prepareTheatreBean();
-
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				theatreDAO.lockMethod(theatre);
+				theatreDAO.lockMethod(2);
 			}
 		};
 		Thread t1 = new Thread(runnable);
 		t1.start();
 		
-		theatreDAO.lockMethod(theatre);
+		theatreDAO.lockMethod(2);
 		
 		t1.join();
-	}
-	
-	private User prepareUserBean() {
-		User user = TestUtil.createTestUsers(1).get(0);
-		userDAO.save(user);
-		return user;
-	}
-	
-	private Theatre prepareTheatreBean() {
-		Theatre theatre = TestUtil.createTestTheatre(0);
-		theatreDAO.save(theatre);
-		return theatre;
 	}
 }

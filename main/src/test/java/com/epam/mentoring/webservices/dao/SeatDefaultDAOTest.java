@@ -1,65 +1,37 @@
 package com.epam.mentoring.webservices.dao;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.epam.mentoring.webservices.bean.Perfomance;
 import com.epam.mentoring.webservices.bean.Seat;
 import com.epam.mentoring.webservices.bean.SeatPerfomance;
+import com.epam.mentoring.webservices.test.AbstractDBUnitTest;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class SeatDefaultDAOTest extends AbstractTest {
+public class SeatDefaultDAOTest extends AbstractDBUnitTest {
 
 	@Autowired
 	protected SeatDAO seatDAO;
-	@Autowired
-	protected SeatPerfomanceDAO seatPerfomanceDAO;
-	@Autowired
-	protected PerfomanceDAO perfomanceDAO;
 
 	@Test
+	@DatabaseSetup({ "/data/theatre-data.xml", "/data/show-data.xml", 
+			"/data/perfomance-data.xml", "/data/seat-data.xml",
+			"/data/seat-perfomance-data.xml" })
 	public void testFindSeatsUnderPriceForPerfomance() {
-		double price = 10;
-		double cof = 1;
-		double expectedPrice = 20;
 
-		Perfomance perfomance = TestUtil.createTestPerfomance(0);
-		perfomanceDAO.save(perfomance);
-
-		Set<Seat> seats = TestUtil.createTestSeats(3);
-		Set<Seat> expectedSeats = new HashSet<>();
-		Set<Seat> notExpectedSeats = new HashSet<>();
-		for (Seat seat : seats) {
-			seatDAO.save(seat);
-			
-			double currentPrice = price * cof++;
-			SeatPerfomance seatPerfomance = TestUtil.createTestSeatPerfomance(
-					currentPrice, seat, perfomance);
-
-			seatPerfomanceDAO.save(seatPerfomance);
-			if (currentPrice <= expectedPrice) {
-				expectedSeats.add(seat);
-			} else {
-				notExpectedSeats.add(seat);
-			}
-		}
+		double price = 20;
+		long perfomanceID = 1;
 
 		List<Seat> actualSeats = seatDAO.findSeatsUnderPriceForPerfomance(
-				expectedPrice, perfomance.getID());
+				price, perfomanceID);
 
-		for (Seat seat : expectedSeats) {
-			assertTrue(actualSeats.contains(seat));
+		for (Seat seat : actualSeats) {
+			for (SeatPerfomance seatPerfomance : seat.getSeatPerfomanceSet()) {
+				assertTrue(seatPerfomance.getPrice() < price);
+			}
 		}
-		
-		for (Seat seat : notExpectedSeats) {
-			assertFalse(actualSeats.contains(seat));
-		}
-
 	}
 }

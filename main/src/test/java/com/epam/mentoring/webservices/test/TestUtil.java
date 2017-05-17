@@ -1,4 +1,4 @@
-package com.epam.mentoring.webservices.dao;
+package com.epam.mentoring.webservices.test;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class TestUtil {
 
 	private static Date DEFAULT_DATE = new Date();
 
-	protected static List<User> createTestUsers(int count) {
+	public static List<User> createTestUsers(int count) {
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			users.add(createTestUser(i));
@@ -28,7 +28,7 @@ public class TestUtil {
 		return users;
 	}
 
-	protected static User createTestUser(int i) {
+	public static User createTestUser(int i) {
 		User user = new User();
 		user.setName("name " + i);
 		user.setSurname("surname" + i);
@@ -36,7 +36,7 @@ public class TestUtil {
 		return user;
 	}
 
-	protected static List<User> createTestUsersWithTickets(int userCount,
+	public static List<User> createTestUsersWithTickets(int userCount,
 			int ticketCount) {
 		List<User> users = new ArrayList<>();
 		for (int i = 0; i < userCount; i++) {
@@ -47,7 +47,7 @@ public class TestUtil {
 		return users;
 	}
 
-	protected static Set<Ticket> createTestTickets(User user, int count) {
+	public static Set<Ticket> createTestTickets(User user, int count) {
 		Set<Ticket> tickets = new HashSet<>();
 		for (int i = 0; i < count; i++) {
 			tickets.add(createTestTicket(user, i));
@@ -55,7 +55,7 @@ public class TestUtil {
 		return tickets;
 	}
 
-	protected static Ticket createTestTicket(User user, int i) {
+	public static Ticket createTestTicket(User user, int i) {
 		Ticket ticket = new Ticket();
 		ticket.setUser(user);
 		ticket.setPrice(i);
@@ -64,7 +64,7 @@ public class TestUtil {
 		return ticket;
 	}
 
-	protected static Perfomance createTestPerfomance(int i) {
+	public static Perfomance createTestPerfomance(int i) {
 		Perfomance perfomance = new Perfomance();
 		perfomance.setShow(createTestShow(i));
 		perfomance.setTheatre(createTestTheatre(i));
@@ -73,7 +73,7 @@ public class TestUtil {
 		return perfomance;
 	}
 
-	protected static Set<Perfomance> createTestPerfomancesForShow(Show show,
+	public static Set<Perfomance> createTestPerfomancesForShow(Show show,
 			int count) {
 		Set<Perfomance> perfomances = new HashSet<>();
 		for (int i = 0; i < count; i++) {
@@ -87,7 +87,7 @@ public class TestUtil {
 		return perfomances;
 	}
 
-	protected static Set<Theatre> createTestTheatres(int count) {
+	public static Set<Theatre> createTestTheatres(int count) {
 		Set<Theatre> theatres = new HashSet<>();
 		for (int i = 0; i < count; i++) {
 			theatres.add(createTestTheatre(i));
@@ -95,14 +95,14 @@ public class TestUtil {
 		return theatres;
 	}
 
-	protected static Theatre createTestTheatre(int i) {
+	public static Theatre createTestTheatre(int i) {
 		Theatre theatre = new Theatre();
 		theatre.setSummary("summary" + i);
 		theatre.setTitle("title" + i);
 		return theatre;
 	}
 
-	protected static List<Show> createTestShows(int count) {
+	public static List<Show> createTestShows(int count) {
 		List<Show> shows = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			shows.add(createTestShow(i));
@@ -110,31 +110,29 @@ public class TestUtil {
 		return shows;
 	}
 
-	protected static Show createTestShow(int i) {
+	public static Show createTestShow(int i) {
 		Show show = new Show();
 		show.setSummary("summary" + i);
 		show.setTitle("title" + i);
 		return show;
 	}
 
-	protected static Set<TheatreOwner> createTestTheatreOwners(int count,
-			int subCount) {
+	public static Set<TheatreOwner> createTestTheatreOwners(int count) {
 		Set<TheatreOwner> theatreOwners = new HashSet<>();
 		for (int i = 0; i < count; i++) {
-			theatreOwners.add(createTestTheatreOwner(i, subCount));
+			theatreOwners.add(createTestTheatreOwner(i));
 		}
 		return theatreOwners;
 	}
 
-	protected static TheatreOwner createTestTheatreOwner(int i, int subCount) {
+	public static TheatreOwner createTestTheatreOwner(int i) {
 		TheatreOwner theatreOwner = new TheatreOwner();
 		theatreOwner.setInfo("info" + i);
 		theatreOwner.setName("name" + i);
-		theatreOwner.setTheatres(createTestTheatres(subCount));
 		return theatreOwner;
 	}
 
-	protected static Set<Seat> createTestSeats(int count) {
+	public static Set<Seat> createTestSeats(int count) {
 		Set<Seat> seats = new HashSet<>();
 		for (int i = 0; i < count; i++) {
 			seats.add(createTestSeat(i));
@@ -142,14 +140,14 @@ public class TestUtil {
 		return seats;
 	}
 
-	protected static Seat createTestSeat(int i) {
+	public static Seat createTestSeat(int i) {
 		Seat seat = new Seat();
 		seat.setPlace("place" + i);
 		seat.setRow("row" + i);
 		return seat;
 	}
 
-	protected static SeatPerfomance createTestSeatPerfomance(double price,
+	public static SeatPerfomance createTestSeatPerfomance(double price,
 			Seat seat, Perfomance perfomance) {
 		SeatPerfomance seatPerfomance = new SeatPerfomance();
 		seatPerfomance.setPerfomance(perfomance);

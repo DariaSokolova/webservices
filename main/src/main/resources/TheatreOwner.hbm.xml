@@ -15,14 +15,14 @@
 		<property name="info" type="string">
 			<column name="info" not-null="true" />
 		</property>
-	 	<set name="theatres" table="DB_THEATREOWNER_THEATRE" inverse="true" lazy="false"
-			fetch="select" cascade="all" batch-size="100">
+		<set name="theatres" table="DB_THEATREOWNER_THEATRE" inverse="false"
+			fetch="join" lazy="true" batch-size="100" cascade="all">
 			<key>
 				<column name="theatreowner_ID" not-null="true" />
 			</key>
 			<many-to-many entity-name="com.epam.mentoring.webservices.bean.Theatre">
 				<column name="theatre_ID" not-null="true" />
 			</many-to-many>
-		</set> 
+		</set>
 	</class>
 </hibernate-mapping>

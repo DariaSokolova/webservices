@@ -1,31 +1,37 @@
 package com.epam.mentoring.webservices.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.epam.mentoring.webservices.bean.Theatre;
+import com.epam.mentoring.webservices.test.AbstractDBUnitTest;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class TheatreDefaultDAOTest extends AbstractTest {
+public class TheatreDefaultDAOTest extends AbstractDBUnitTest {
 
 	@Autowired
 	protected TheatreDAO theatreDAO;
 
 	@Test
-	public void testFindTheatreByTitle() {
+	@DatabaseSetup("/data/theatre-data.xml")
+	public void testFindTheatreByTitle_existTitle() {
 		String title = "Prince of Wales";
-		
-		Theatre expectedTheatre = TestUtil.createTestTheatre(0);
-		expectedTheatre.setTitle(title);;
-		theatreDAO.save(expectedTheatre);
-		
-		Theatre anotherTheatre = TestUtil.createTestTheatre(1);
-		anotherTheatre.setTitle("Apollo Victoria");
-		theatreDAO.save(anotherTheatre);
 		
 		Theatre actualTheatre = theatreDAO.findTheatreByTitle(title);
 
-		assertEquals(actualTheatre.getTitle(), expectedTheatre.getTitle());
+		assertEquals(title, actualTheatre.getTitle());
+	}
+	
+	@Test
+	@DatabaseSetup("/data/theatre-data.xml")
+	public void testFindTheatreByTitle_notExistTitle() {
+		String title = "National";
+		
+		Theatre actualTheatre = theatreDAO.findTheatreByTitle(title);
+
+		assertNull(actualTheatre);
 	}
 }

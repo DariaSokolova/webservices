@@ -75,7 +75,8 @@
 	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDefaultDAO" />
 	<bean id="ticketDAO" class="com.epam.mentoring.webservices.dao.TicketDefaultDAO" />
 	<bean id="perfomanceDAO" class="com.epam.mentoring.webservices.dao.PerfomanceDefaultDAO" />
-	<bean id="seatPerfomanceDAO" class="com.epam.mentoring.webservices.dao.SeatPerfomanceDefaultDAO" />
+	<bean id="seatPerfomanceDAO"
+		class="com.epam.mentoring.webservices.dao.SeatPerfomanceDefaultDAO" />
 	<bean id="theatreDAO" class="com.epam.mentoring.webservices.dao.TheatreDefaultDAO" />
 	<bean id="theatreOwnerDAO"
 		class="com.epam.mentoring.webservices.dao.TheatreOwnerDefaultDAO" />
@@ -93,6 +94,18 @@
 				<prop key="MaxLimit">10</prop>
 			</props>
 		</property>
+	</bean>
+
+	<bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
+		<property name="skipOracleRecyclebinTables" value="true" />
+		<property name="qualifiedTableNames" value="true" />
+		<!-- <property name="caseSensitiveTableNames" value="true"/> -->
+	</bean>
+	<bean id="dbUnitDatabaseConnection"
+		class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="databaseConfig" ref="dbUnitDatabaseConfig" />
+		<property name="schema" value="MENTORING" />
 	</bean>
 
 </beans>

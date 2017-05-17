@@ -22,9 +22,9 @@
 			<one-to-many class="com.epam.mentoring.webservices.bean.Perfomance" />
 		</set>
 		<set name="theatreOwners" table="DB_THEATREOWNER_THEATRE" inverse="false"
-			lazy="true" fetch="select" cascade="all" batch-size="100">
+			lazy="true" fetch="subselect" cascade="all">
 			<key>
-				<column name="theatre_ID" not-null="true" />
+				<column name="theatre_id" not-null="true" />
 			</key>
 			<many-to-many entity-name="com.epam.mentoring.webservices.bean.TheatreOwner">
 				<column name="theatreowner_ID" not-null="true" />

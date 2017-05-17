@@ -21,7 +21,7 @@
 		</many-to-one>
 		<many-to-one name="perfomance" class="com.epam.mentoring.webservices.bean.Perfomance"
 			 fetch="join" lazy="proxy" cascade="all">
-			<column name="perfomance_id" not-null="false" />
+			<column name="perfomance_id" not-null="true" />
 		</many-to-one> 
 	</class>	
 	<sql-query name="findTicketsByShowTitle">

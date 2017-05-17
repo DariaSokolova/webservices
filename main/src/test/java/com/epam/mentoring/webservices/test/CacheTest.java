@@ -1,4 +1,4 @@
-package com.epam.mentoring.webservices.dao;
+package com.epam.mentoring.webservices.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,10 +8,17 @@ import org.hibernate.Session;
 import org.hibernate.stat.Statistics;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.epam.mentoring.webservices.bean.Theatre;
+import com.epam.mentoring.webservices.dao.TheatreDAO;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class CacheTest extends AbstractTest {
+@TestExecutionListeners({ DbUnitTestExecutionListener.class,
+		DependencyInjectionTestExecutionListener.class })
+public class CacheTest extends AbstractDBTest {
 
 	private static final Logger logger = Logger.getLogger(CacheTest.class);
 
@@ -19,13 +26,13 @@ public class CacheTest extends AbstractTest {
 	protected TheatreDAO theatreDAO;
 
 	@Test
-	public void testCache_get() {
-		Theatre theatre = prepareTestBean();
+	@DatabaseSetup("/data/theatre-data.xml")
+	public void testCache() {
+		long id = 1;
 
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-
-		long id = theatre.getID();
+		Statistics stat = sessionFactory.getStatistics();
+		stat.clear();
 
 		long startTime = System.currentTimeMillis();
 		session.get(Theatre.class, id);
@@ -42,24 +49,20 @@ public class CacheTest extends AbstractTest {
 		logger.info("1th level cache call. Execute Time : " + executeTime1Cache
 				+ "ms");
 
-		session.getTransaction().commit();
 		session.close();
-		
+
 		session = sessionFactory.openSession();
-		session.beginTransaction();
 
 		startTime = System.currentTimeMillis();
+
 		session.get(Theatre.class, id);
 		endTime = System.currentTimeMillis();
 
 		long executeTime2Cache = endTime - startTime;
 		logger.info("2th level cache call. Execute Time : " + executeTime2Cache
 				+ "ms");
-
-		session.getTransaction().commit();
 		session.close();
 
-		Statistics stat = sessionFactory.getStatistics();
 		stat.logSummary();
 
 		assertEquals(1, stat.getSecondLevelCacheHitCount());
@@ -67,13 +70,5 @@ public class CacheTest extends AbstractTest {
 
 		assertTrue(executeTimeDB > executeTime1Cache);
 		assertTrue(executeTimeDB > executeTime2Cache);
-	}
-
-	private Theatre prepareTestBean() {
-		Theatre theatre = TestUtil.createTestTheatres(1).iterator().next();
-		theatreDAO.save(theatre);
-		sessionFactory.getCache().evictEntityRegion(Theatre.class);
-		sessionFactory.getStatistics().clear();
-		return theatre;
 	}
 }

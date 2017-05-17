@@ -79,7 +79,6 @@
 	</bean>
 
 	<bean id="userDAO" class="com.epam.mentoring.webservices.dao.UserDefaultDAO" />
-	<bean id="taskDAO" class="com.epam.mentoring.webservices.dao.TaskDefaultDAO" />
 
 	<bean id="userControllerValidator"
 		class="com.epam.mentoring.webservices.validator.UserControllerValidator" />
