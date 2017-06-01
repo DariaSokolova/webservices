@@ -5,10 +5,9 @@
 		batch-size="100" table="DB_USER">
 		<id name="userID" type="long">
 			<column name="user_id" />
-			<generator class="sequence">
-				<param name="sequence">SEQ_user</param>
-			</generator>
+			<generator class="increment" />
 		</id>
+		<version name="version" type="int"/>
 		<property name="name" type="string">
 			<column name="name" not-null="true" />
 		</property>
@@ -21,12 +20,12 @@
 		<property name="photo" type="blob">
 			<column name="photo" not-null="false" />
 		</property>
-	   <set name="tasks" table="DB_TASK" inverse="true" cascade="delete" 
-			lazy="false" fetch="select">
+		<set name="tickets" table="DB_TICKET" inverse="true" cascade="all"
+		lazy="false" fetch="select" batch-size="100"> 
 			<key>
 				<column name="user_id" not-null="true" />
 			</key>
-			<one-to-many class="com.epam.mentoring.webservices.bean.Task" />
-		</set>	
+			<one-to-many class="com.epam.mentoring.webservices.bean.Ticket" />
+		</set>
 	</class>
 </hibernate-mapping>

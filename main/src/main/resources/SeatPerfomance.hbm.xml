@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.epam.mentoring.webservices.bean.SeatPerfomance"
+		batch-size="100" table="DB_SEAT_PERFOMANCE">
+		<id name="seatPerfomanceID" type="long">
+			<column name="seatPerfomance_id" />
+			<generator class="hilo" />
+		</id>
+		<many-to-one name="seat" 
+			class="com.epam.mentoring.webservices.bean.Seat" fetch="join">
+			<column name="seat_id" not-null="true" />
+		</many-to-one>
+		<many-to-one name="perfomance" 
+			class="com.epam.mentoring.webservices.bean.Perfomance" fetch="join">
+			<column name="perfomance_id" not-null="true" />
+		</many-to-one>
+		<property name="price" type="double">
+			<column name="price" not-null="true" />
+		</property>
+		<property name="seatStatus">
+            <column name="seat_status" not-null="true" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.epam.mentoring.webservices.bean.SeatStatus</param>
+            	<param name="useNamed">true</param>
+            </type>
+        </property>
+	</class>
+</hibernate-mapping>

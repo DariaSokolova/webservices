@@ -3,15 +3,15 @@ package com.epam.mentoring.webservices.config;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class ExecuteTimeInterceptor extends HandlerInterceptorAdapter {
-	private static final Logger logger = LogManager
+
+	private static final Logger logger = Logger
 			.getLogger(ExecuteTimeInterceptor.class);
-	
+
 	private static final String START_TIME = "startTime";
 
 	public boolean preHandle(HttpServletRequest request,
